@@ -29,8 +29,8 @@ void gpio_init(void)
     /* 设置GPIO的方向为输出 */
     GPIO1->GDIR |= (1 << 2);
 
-    /* 设置GPIO1_IO02引脚输出高电平 */
-    GPIO1->DR |= (1 << 2);
+    /* 设置GPIO1_IO02引脚输出低电平 */
+    GPIO1->DR &= ~(1 << 2);
 	
 	
 	/* 设置GPIO1_IO09 */

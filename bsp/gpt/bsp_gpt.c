@@ -69,10 +69,22 @@ void gpt_init(unsigned int prescalar, unsigned int value)
  */
 void gpt_irqhandler(unsigned int giccIar, void *userParam)
 {
+	edgeStatus = edgeStatus + 1;
 	UART_WriteByte(UART1, '\r');
 	UART_WriteByte(UART1, '\n');
 	uint32_t time = GPT1->ICR[0];
-	UART_WriteNum(time);			
+	
+	if(edgeStatus%2 == 1){
+		startTime = time;
+		//UART_WriteByte(UART1, 'S');
+		//UART_WriteNum(edgeStatus);
+	}
+	else if(edgeStatus%2 == 0){
+		flightTime = time - startTime;
+		//UART_WriteByte(UART1, 'E');
+		//UART_WriteNum(edgeStatus);
+	}
+	UART_WriteNum(flightTime);			
 
 	GPT1->SR |= (1 << 3);
 }

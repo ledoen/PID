@@ -9,6 +9,9 @@
 /**
  * main() - 主函数
  */
+uint8_t edgeStatus = 0;
+uint32_t startTime = 0;
+uint32_t flightTime = 0;
 int main(void)
 {
     clk_enable();   /* 外设时钟使能 */
@@ -22,8 +25,9 @@ int main(void)
 	UART_WriteNum(0x333);
     while (1) {
 		/* 产生触发测距的信号：拉低在epit.c中产生的高电平，持续时间为3000-2950*/
-		if(EPIT1->CNR  == 2950)
+		if(EPIT1->CNR  == 2950){
 			gpio1X2_output(0);
+		}
     }
 
     return 0;
