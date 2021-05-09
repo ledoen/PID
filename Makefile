@@ -13,7 +13,8 @@ INCLDIRS          := imx6ul \
 					bsp/int \
 					bsp/epit \
 					bsp/uart \
-					bsp/gpt
+					bsp/gpt \
+					bsp/pwm
                     
 SRCDIRS           := project \
                     bsp/clk \
@@ -22,7 +23,8 @@ SRCDIRS           := project \
 					bsp/int \
 					bsp/epit \
 					bsp/uart \
-					bsp/gpt
+					bsp/gpt \
+					bsp/pwm
                     
 INCLUDE            := $(patsubst %, -I %, $(INCLDIRS))
 
