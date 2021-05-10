@@ -2,7 +2,7 @@
 #include "bsp_int.h"
 #include "bsp_gpio.h"
 #include "bsp_uart.h"
-
+#include "bsp_pwm.h"
 /**
  * gpt_init() - GPT1定时器初始化函数
  * 
@@ -70,8 +70,8 @@ void gpt_init(unsigned int prescalar, unsigned int value)
 void gpt_irqhandler(unsigned int giccIar, void *userParam)
 {
 	edgeStatus = edgeStatus + 1;
-	UART_WriteByte(UART1, '\r');
-	UART_WriteByte(UART1, '\n');
+	//UART_WriteByte(UART1, '\r');
+	//UART_WriteByte(UART1, '\n');
 	uint32_t time = GPT1->ICR[0];
 	
 	if(edgeStatus%2 == 1){
@@ -84,7 +84,15 @@ void gpt_irqhandler(unsigned int giccIar, void *userParam)
 		//UART_WriteByte(UART1, 'E');
 		//UART_WriteNum(edgeStatus);
 	}
-	UART_WriteNum(flightTime);			
+	//UART_WriteNum(flightTime);			
+
+	if(flightTime <= 294)
+		pwm3_setduty(500);
+	else if(flightTime > 294 && flightTime < 1470)
+		pwm3_setduty(1.7 * flightTime);
+	else if(flightTime >= 1470)
+		pwm3_setduty(2500);
+
 
 	GPT1->SR |= (1 << 3);
 }

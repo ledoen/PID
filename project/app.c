@@ -21,7 +21,7 @@ int main(void)
     epit1_init(66, 3000);/* EPIT1定时器初始化，1000000为1s */
 	uart1_init();
 	gpt_init(66, 0x8000000);
-	pwm3_init(66, 20000, 500);
+	pwm3_init(66, 20000, 1500);
 	UART_WriteByte(UART1, '\r');
 	UART_WriteByte(UART1, '\n');
 	UART_WriteNum(0x333);
